@@ -13,7 +13,6 @@ import android.widget.TextView;
  */
 public class AdaptadorCursor extends CursorAdapter {
     private Cursor c;
-
     public AdaptadorCursor(Context context, Cursor c) {
         super(context, c, true);
     }
@@ -37,8 +36,7 @@ public class AdaptadorCursor extends CursorAdapter {
         tvlocalidad.setText(in.getLocalidad());
         tvcalle.setText(in.getCalle());
         tvtipo.setText(in.getTipo());
-        tvprecio.setText(in.getPrecio());
-
+        tvprecio.setText(in.getPrecio()+"€");
     }
 }
 
