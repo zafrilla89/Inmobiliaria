@@ -34,7 +34,6 @@ public class Fragmento2 extends Fragment {
     }
 
     public void ponerimagen(Adaptador ad, File archivo, ArrayList<Inmueble> lista, int posicion, ArrayList<Bitmap> lis){
-
         Inmueble i=lista.get(posicion);
         String id=""+i.getId();
         String[] listaDirectorio = archivo.list();
@@ -46,7 +45,6 @@ public class Fragmento2 extends Fragment {
             }
         }
         ad.notifyDataSetChanged();
-
     }
 
 }

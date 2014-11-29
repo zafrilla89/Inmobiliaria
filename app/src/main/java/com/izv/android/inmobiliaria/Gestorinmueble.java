@@ -70,9 +70,8 @@ public class Gestorinmueble {
 
     public List<Inmueble> select(String condicion, String[] parametros, String orderby) {
         List<Inmueble> alj = new ArrayList<Inmueble>();
-
             Cursor cursor = bd.query(Contrato.TablaInmueble.TABLA, null,
-                    condicion, parametros, null, null, orderby); //Select from Jugador where condicion orederBy orederby;
+                    condicion, parametros, null, null, orderby);
             cursor.moveToFirst();
             Inmueble in;
             while (!cursor.isAfterLast()) {
@@ -82,7 +81,6 @@ public class Gestorinmueble {
             }
             cursor.close();
             return alj;
-
     }
 
     public static Inmueble getRow(Cursor c) {
@@ -97,7 +95,7 @@ public class Gestorinmueble {
 
     public Inmueble getRow(long id){
         List<Inmueble> alj= select(Contrato.TablaInmueble._ID + " = ?",new String[]{ id+"" },null );
-        if (alj.isEmpty()) {  //isEmpty es si esta vacio
+        if (alj.isEmpty()) {
             return alj.get(0);
         }
         return null;
