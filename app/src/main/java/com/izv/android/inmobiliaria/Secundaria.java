@@ -1,16 +1,11 @@
 package com.izv.android.inmobiliaria;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 

@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,7 +31,6 @@ public class Editar extends Activity {
         setContentView(R.layout.editar);
         gi=new Gestorinmueble(this);
         gi.open();
-        Cursor c= gi.getCursor();
         Bundle b = getIntent().getExtras();
         if(b !=null ) {
             lista = b.getParcelableArrayList("datos");
@@ -57,7 +54,6 @@ public class Editar extends Activity {
     /***********************************************************************/
 
     public boolean comprueba(Inmueble i2, Inmueble i){
-        Inmueble i3;
         if(i.equals(i2)){
             return true;
         }else {
