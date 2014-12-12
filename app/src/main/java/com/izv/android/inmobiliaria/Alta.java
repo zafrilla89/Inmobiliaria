@@ -100,7 +100,7 @@ public class Alta extends Activity {
             semaforo=false;
         }
         if(semaforo==false) {
-            tostada("NO RELLENASTE TODOS LOS CAMPOS O NO HAS HECHO FOTO");
+            tostada("NO RELLENASTE TODOS LOS CAMPOS");
         }
 
     }
