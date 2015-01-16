@@ -127,7 +127,6 @@ public class Alta extends Activity {
         if(semaforo==false) {
             tostada("NO RELLENASTE TODOS LOS CAMPOS");
         }
-
     }
 
     public void volver(View v){

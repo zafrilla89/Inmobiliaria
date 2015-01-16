@@ -200,7 +200,4 @@ public class Principal extends Activity {
         int i=getContentResolver().delete(uri,where,args);
     }
 
-
-
-
 }
