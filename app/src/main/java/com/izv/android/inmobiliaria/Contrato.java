@@ -18,6 +18,7 @@ public class Contrato {
         public static final String CALLE = "calle";
         public static final String TIPO = "tipo";
         public static final String PRECIO = "precio";
+        public static final String SUBIDO = "subido";
         public static final String CONTEXT_TYPE_INMUEBLE=
                 "vnd.android.cursor.dir/vnd.izv.inmueble";
         public static final String CONTEXT_TYPE_INMUEBLES=

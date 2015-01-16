@@ -25,7 +25,8 @@ public class Ayudante extends SQLiteOpenHelper {
                 Contrato.TablaInmueble.LOCALIDAD+" text, "+
                 Contrato.TablaInmueble.CALLE+" text, "+
                 Contrato.TablaInmueble.TIPO+" text, "+
-                Contrato.TablaInmueble.PRECIO+" text)";
+                Contrato.TablaInmueble.PRECIO+" text,"+
+                Contrato.TablaInmueble.SUBIDO+" text) ";
         db.execSQL(sql);
     }
 

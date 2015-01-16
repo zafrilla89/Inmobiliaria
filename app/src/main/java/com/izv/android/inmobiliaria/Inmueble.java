@@ -12,6 +12,7 @@ public class Inmueble implements Comparable<Inmueble>, Parcelable{
     private String calle;
     private String tipo;
     private String precio;
+    private String subido;
     private int id;
 
     public Inmueble() {
@@ -70,6 +71,14 @@ public class Inmueble implements Comparable<Inmueble>, Parcelable{
 
     public void setPrecio(String precio) {
         this.precio = precio;
+    }
+
+    public String getSubido() {
+        return subido;
+    }
+
+    public void setSubido(String subido) {
+        this.subido = subido;
     }
 
     @Override

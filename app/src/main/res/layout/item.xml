@@ -60,4 +60,19 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/tvprecio"
         android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/subido"
+        android:id="@+id/textView5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tvsubido"
+        android:layout_marginLeft="10dp" />
+
 </LinearLayout>

@@ -28,15 +28,21 @@ public class AdaptadorCursor extends CursorAdapter {
     public void bindView(View v, Context co, Cursor c) {
         Inmueble in=new Inmueble();
         in= getRow(c);
-        TextView tvlocalidad, tvcalle, tvtipo, tvprecio;
+        TextView tvlocalidad, tvcalle, tvtipo, tvprecio, tvsubido;
         tvlocalidad = (TextView) v.findViewById(R.id.tvlocalidad);
         tvcalle = (TextView) v.findViewById(R.id.tvcalle);
         tvtipo =(TextView)v.findViewById(R.id.tvtipo);
         tvprecio=(TextView)v.findViewById(R.id.tvprecio);
+        tvsubido=(TextView)v.findViewById(R.id.tvsubido);
         tvlocalidad.setText(in.getLocalidad());
         tvcalle.setText(in.getCalle());
         tvtipo.setText(in.getTipo());
         tvprecio.setText(in.getPrecio()+"€");
+        if (in.getSubido().compareTo("0")==0){
+            tvsubido.setText("NO");
+        }else{
+            tvsubido.setText("SI");
+        }
     }
 
     public static Inmueble getRow(Cursor c) {
@@ -46,6 +52,7 @@ public class AdaptadorCursor extends CursorAdapter {
         in.setCalle(c.getString(2));
         in.setTipo(c.getString(3));
         in.setPrecio(c.getString(4));
+        in.setSubido(c.getString(5));
         return in;
     }
 }

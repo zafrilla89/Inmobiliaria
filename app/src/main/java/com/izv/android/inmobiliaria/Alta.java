@@ -148,6 +148,7 @@ public class Alta extends Activity {
         valores.put(Contrato.TablaInmueble.LOCALIDAD, in.getLocalidad());
         valores.put(Contrato.TablaInmueble.TIPO, in.getTipo());
         valores.put(Contrato.TablaInmueble.PRECIO, in.getPrecio());
+        valores.put(Contrato.TablaInmueble.SUBIDO, "0");
         Uri urielemento= getContentResolver().insert(uri,valores);
         Cursor cursor=getContentResolver().query(
                 urielemento,null,null,null,null);
