@@ -4,5 +4,13 @@
         android:title="@string/anadir"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item android:id="@+id/Subir"
+        android:title="@string/subir"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item android:id="@+id/bajar"
+        android:title="@string/bajar"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
 </menu>
 
