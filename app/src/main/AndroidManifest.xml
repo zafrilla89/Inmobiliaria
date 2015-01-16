@@ -7,6 +7,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <provider
+            android:name="com.izv.android.inmobiliaria.ProveedorInmueble"
+            android:authorities="com.izv.android.inmobiliaria.proveedorinmueble"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
         <activity
             android:name="com.izv.android.inmobiliaria.Principal"
             android:label="@string/app_name" >

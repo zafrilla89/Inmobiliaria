@@ -27,7 +27,7 @@ public class AdaptadorCursor extends CursorAdapter {
     @Override
     public void bindView(View v, Context co, Cursor c) {
         Inmueble in=new Inmueble();
-        in= Gestorinmueble.getRow(c);
+        in= getRow(c);
         TextView tvlocalidad, tvcalle, tvtipo, tvprecio;
         tvlocalidad = (TextView) v.findViewById(R.id.tvlocalidad);
         tvcalle = (TextView) v.findViewById(R.id.tvcalle);
@@ -37,6 +37,16 @@ public class AdaptadorCursor extends CursorAdapter {
         tvcalle.setText(in.getCalle());
         tvtipo.setText(in.getTipo());
         tvprecio.setText(in.getPrecio()+"€");
+    }
+
+    public static Inmueble getRow(Cursor c) {
+        Inmueble in = new Inmueble();
+        in.setId(c.getInt(0));
+        in.setLocalidad(c.getString(1));
+        in.setCalle(c.getString(2));
+        in.setTipo(c.getString(3));
+        in.setPrecio(c.getString(4));
+        return in;
     }
 }
 

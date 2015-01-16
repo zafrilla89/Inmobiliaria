@@ -1,9 +1,13 @@
 package com.izv.android.inmobiliaria;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -21,7 +25,6 @@ public class Principal extends Activity {
 
     private ArrayList<Inmueble> lista;
     private AdaptadorCursor a;
-    private Gestorinmueble gi;
     private ListView lv;
     private Cursor c;
 
@@ -40,12 +43,14 @@ public class Principal extends Activity {
             editar(index);
         }else {
             if (id == R.id.m_borrar) {
-                lista= (ArrayList<Inmueble>) gi.select();
-                Inmueble in =lista.get(index);
-                gi.delete(in);
+                lista= sacarlista();
+                Inmueble in= lista.get(index);
+                borrar(in.getId());
+                selectdatos();
                 borrarfoto(in);
-                a.changeCursor(gi.getCursor());
-                lista= (ArrayList<Inmueble>) gi.select();
+                a.changeCursor(c);
+                lista=sacarlista();
+
 
             }
         }
@@ -116,12 +121,20 @@ public class Principal extends Activity {
         return true;
     }
 
+    public static Inmueble getRow(Cursor c) {
+        Inmueble in = new Inmueble();
+        in.setId(c.getInt(0));
+        in.setLocalidad(c.getString(1));
+        in.setCalle(c.getString(2));
+        in.setTipo(c.getString(3));
+        in.setPrecio(c.getString(4));
+        return in;
+    }
+
     public void iniciarcomponentes(){
+        selectdatos();
         lista = new ArrayList<Inmueble>();
-        gi=new Gestorinmueble(this);
-        gi.open();
-        lista= (ArrayList<Inmueble>) gi.select();
-        c= gi.getCursor();
+        lista= sacarlista();
         lv=(ListView)findViewById(R.id.listView);
         a=new AdaptadorCursor(this, c);
         lv.setAdapter(a);
@@ -147,4 +160,47 @@ public class Principal extends Activity {
         });
         registerForContextMenu(lv);
     }
+
+    public ArrayList<Inmueble> sacarlista(){
+        ArrayList<Inmueble> lista=new ArrayList<Inmueble>();
+        c.moveToFirst();
+        Inmueble in;
+        while (!c.isAfterLast()) {
+            in = getRow(c);
+            lista.add(in);
+            c.moveToNext();
+        }
+        return lista;
+    }
+
+    /***********************************************************************/
+    /*                                                                     */
+    /*                    METODOS CONTENT PROVIDER                         */
+    /*                                                                     */
+    /***********************************************************************/
+
+    public void selectdatos() {
+        Uri uri = Contrato.TablaInmueble.CONTENT_URI;
+        String[] proyeccion = null;
+        String condicion = null;
+        String[] parametros = null;
+        String orden = null;
+        c= getContentResolver().query(
+                uri,
+                proyeccion,
+                condicion,
+                parametros,
+                orden);
+    }
+
+    public void borrar(int index){
+        Uri uri= Contrato.TablaInmueble.CONTENT_URI;
+        String where= Contrato.TablaInmueble._ID+"=?";
+        String[] args= new String[]{index+""};
+        int i=getContentResolver().delete(uri,where,args);
+    }
+
+
+
+
 }

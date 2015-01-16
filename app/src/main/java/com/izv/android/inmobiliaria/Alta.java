@@ -1,8 +1,10 @@
 package com.izv.android.inmobiliaria;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +21,7 @@ public class Alta extends Activity {
     private ArrayList<Inmueble> datos;
     private Inmueble in;
     private boolean comprobar;
-    Gestorinmueble gi;
+    private Cursor c;
 
     /***********************************************************************/
     /*                                                                     */
@@ -31,10 +33,8 @@ public class Alta extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alta);
-        gi=new Gestorinmueble(this);
-        gi.open();
-        Cursor c= gi.getCursor();
-        datos= (ArrayList<Inmueble>) gi.select();
+        selectdatos();
+        datos=sacarlista();
 
     }
 
@@ -57,6 +57,28 @@ public class Alta extends Activity {
             }
             return true;
         }
+    }
+
+    public static Inmueble getRow(Cursor c) {
+        Inmueble in = new Inmueble();
+        in.setId(c.getInt(0));
+        in.setLocalidad(c.getString(1));
+        in.setCalle(c.getString(2));
+        in.setTipo(c.getString(3));
+        in.setPrecio(c.getString(4));
+        return in;
+    }
+
+    public ArrayList<Inmueble> sacarlista(){
+        ArrayList<Inmueble> lista=new ArrayList<Inmueble>();
+        c.moveToFirst();
+        Inmueble in;
+        while (!c.isAfterLast()) {
+            in = getRow(c);
+            lista.add(in);
+            c.moveToNext();
+        }
+        return lista;
     }
 
     public void tostada (String s){
@@ -83,10 +105,13 @@ public class Alta extends Activity {
             in = new Inmueble(localidad, calle, tipo, precio);
             comprobar=comprueba(in);
             if(comprobar==true){
-                long idinmueble=gi.insert(in);
+                insertar(in);
+                selectdatos();
+                datos=sacarlista();
+                in=datos.get(datos.size()-1);
                 Intent i = new Intent(this,Hacerfotos.class);
                 Bundle b = new Bundle();
-                b.putLong("id", idinmueble);
+                b.putLong("id", in.getId());
                 i.putExtras(b);
                 startActivity(i);
                 finish();
@@ -110,4 +135,37 @@ public class Alta extends Activity {
         startActivity(i);
         finish();
     }
+
+    /***********************************************************************/
+    /*                                                                     */
+    /*                    METODOS CONTENT PROVIDER                         */
+    /*                                                                     */
+    /***********************************************************************/
+
+    public void insertar (Inmueble in){
+        Uri uri=Contrato.TablaInmueble.CONTENT_URI;
+        ContentValues valores = new ContentValues();
+        valores.put(Contrato.TablaInmueble.CALLE, in.getCalle());
+        valores.put(Contrato.TablaInmueble.LOCALIDAD, in.getLocalidad());
+        valores.put(Contrato.TablaInmueble.TIPO, in.getTipo());
+        valores.put(Contrato.TablaInmueble.PRECIO, in.getPrecio());
+        Uri urielemento= getContentResolver().insert(uri,valores);
+        Cursor cursor=getContentResolver().query(
+                urielemento,null,null,null,null);
+    }
+
+    public void selectdatos() {
+        Uri uri = Contrato.TablaInmueble.CONTENT_URI;
+        String[] proyeccion = null;
+        String condicion = null;
+        String[] parametros = null;
+        String orden = null;
+        c= getContentResolver().query(
+                uri,
+                proyeccion,
+                condicion,
+                parametros,
+                orden);
+    }
+
 }

@@ -1,8 +1,10 @@
 package com.izv.android.inmobiliaria;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -89,7 +91,7 @@ public class Editar extends Activity {
             comprobar=comprueba(i2,i);
             if(comprobar==true){
                 i2.setId(i.getId());
-                gi.update(i2);
+                update(i2);
                 int id=i.getId();
                 Intent i = new Intent(this,Hacerfotos.class);
                 Bundle b = new Bundle();
@@ -115,4 +117,23 @@ public class Editar extends Activity {
         startActivity(i);
         finish();
     }
+
+    /***********************************************************************/
+    /*                                                                     */
+    /*                    METODOS CONTENT PROVIDER                         */
+    /*                                                                     */
+    /***********************************************************************/
+
+    public void update(Inmueble in){
+        Uri uri= Contrato.TablaInmueble.CONTENT_URI;
+        ContentValues valores = new ContentValues();
+        valores.put(Contrato.TablaInmueble.CALLE, in.getCalle());
+        valores.put(Contrato.TablaInmueble.LOCALIDAD, in.getLocalidad());
+        valores.put(Contrato.TablaInmueble.TIPO, in.getTipo());
+        valores.put(Contrato.TablaInmueble.PRECIO, in.getPrecio());
+        String where=Contrato.TablaInmueble._ID+" =?";
+        String[] args=new String[]{in.getId()+""};
+        int i = getContentResolver().update(uri, valores, where, args);
+    }
+
 }

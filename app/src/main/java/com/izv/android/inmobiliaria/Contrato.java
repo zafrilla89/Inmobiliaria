@@ -1,5 +1,6 @@
 package com.izv.android.inmobiliaria;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
@@ -17,5 +18,11 @@ public class Contrato {
         public static final String CALLE = "calle";
         public static final String TIPO = "tipo";
         public static final String PRECIO = "precio";
+        public static final String CONTEXT_TYPE_INMUEBLE=
+                "vnd.android.cursor.dir/vnd.izv.inmueble";
+        public static final String CONTEXT_TYPE_INMUEBLES=
+                "vnd.android.cursor.item.dir/vnd.inmuebles";
+        public static final Uri CONTENT_URI =Uri.parse("content://" +
+                ProveedorInmueble.AUTORIDAD + "/" + TABLA);
     }
 }
