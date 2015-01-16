@@ -83,14 +83,9 @@ public class ProveedorInmueble extends ContentProvider{
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         switch (convierteUri2Int.match(uri)) {
-            //content://.../jugador
             case INMUEBLES:
                 break;
-            //content://.../jugador/#7
             case INMUEBLE_ID:
-                //OPCION 1
-                //selection = Contrato.TablaJugador._ID+" = "+ uri.getLastPathSegment();
-                //OPCION 2
                 selection = Contrato.TablaInmueble._ID + " = ?";
                 selectionArgs = new String[]{uri.getLastPathSegment()};
                 break;

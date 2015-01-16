@@ -19,7 +19,6 @@ public class Editar extends Activity {
     private int index;
     private EditText etlocalidad, etcalle, ettipo, etprecio;
     private Inmueble i;
-    private Gestorinmueble gi;
 
     /***********************************************************************/
     /*                                                                     */
@@ -30,9 +29,7 @@ public class Editar extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.editar);
-        gi=new Gestorinmueble(this);
-        gi.open();
+        setContentView(R.layout.editar);;
         Bundle b = getIntent().getExtras();
         if(b !=null ) {
             lista = b.getParcelableArrayList("datos");
