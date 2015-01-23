@@ -21,5 +21,6 @@
     <string name="subir">Subir inmuebles</string>
     <string name="bajar">Descargar inmuebles</string>
     <string name="subido">SUBIDO A LA WEB:</string>
+    <string name="usuario">USUARIO</string>
 </resources>
 

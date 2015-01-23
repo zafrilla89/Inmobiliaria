@@ -1,21 +1,28 @@
 package com.izv.android.inmobiliaria;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,6 +34,7 @@ public class Principal extends Activity {
     private AdaptadorCursor a;
     private ListView lv;
     private Cursor c;
+    private String usuario="";
 
     /***********************************************************************/
     /*                                                                     */
@@ -83,6 +91,34 @@ public class Principal extends Activity {
         if (id == R.id.anadir) {
             return anadir();
         }
+        if (id == R.id.usuario) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle(R.string.guardar);
+            LayoutInflater inflater = LayoutInflater.from(this);
+            final View vista = inflater.inflate(R.layout.dialogo, null);
+            alert.setView(vista);
+            final EditText et=(EditText)vista.findViewById(R.id.et);
+            et.setText(usuario);
+            alert.setPositiveButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            if (et.getText().toString().compareTo("")==0){
+                                Toast.makeText(Principal.this,"TIenes que escribir un usuario",Toast.LENGTH_SHORT).show();
+                            }else{
+                                usuario=et.getText().toString();
+                                SharedPreferences pc;
+                                pc = PreferenceManager.getDefaultSharedPreferences(
+                                        getApplicationContext());
+                                SharedPreferences.Editor ed = pc.edit();
+                                ed.putString("usuario", usuario);
+                                ed.commit();
+                            }
+                        }
+                    });
+            alert.setNegativeButton(android.R.string.no,null);
+            alert.show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -132,6 +168,10 @@ public class Principal extends Activity {
     }
 
     public void iniciarcomponentes(){
+        SharedPreferences pc;
+        pc = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        usuario = pc.getString("usuario", "");
         selectdatos();
         lista = new ArrayList<Inmueble>();
         lista= sacarlista();
